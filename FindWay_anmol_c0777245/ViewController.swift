@@ -18,12 +18,13 @@ class ViewController: UIViewController {
         manager.requestWhenInUseAuthorization()
         return manager
     }()
+    var tappedLocation: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // Map intialzing
+        // map intialzing
         setUpMapView()
         
         // handle double tap
@@ -32,15 +33,14 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func doubleTapped(gestureRecognizer: UILongPressGestureRecognizer)
+    @objc func doubleTapped(gestureRecognizer: UITapGestureRecognizer)
     {
-        print("Double tapped")
         let location = gestureRecognizer.location(in: mapObject)
-        let coordinate = mapObject.convert(location, toCoordinateFrom: mapObject)
-
-        // Add annotation:
+        self.tappedLocation = mapObject.convert(location, toCoordinateFrom: mapObject)
+        
+        //annotation:
         let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
+        annotation.coordinate = self.tappedLocation!
         annotation.title = "Location Tapped"
         annotation.subtitle = "Your Desired Location"
         // custom annotation
@@ -52,6 +52,7 @@ class ViewController: UIViewController {
             mapObject.showsCompass = true
             mapObject.showsScale = true
             mapObject.isZoomEnabled = false
+            mapObject.isScrollEnabled = true
         
         // pin points
 //        let artwork1 = Artwork(
@@ -69,7 +70,6 @@ class ViewController: UIViewController {
 //            mapObject.addAnnotation(artwork1)
 //            mapObject.addAnnotation(artwork2)
 
-        
         // call for current location
            currentLocation()
         }
@@ -85,6 +85,38 @@ class ViewController: UIViewController {
            locationManager.startUpdatingLocation()
         }
 
+    @IBAction func findMyWay(_ sender: UIButton) {
+        print("Find My Way")
+        let sourceLat = mapObject.userLocation.location!.coordinate.latitude
+        let sourceLong = mapObject.userLocation.location!.coordinate.longitude
+        let destinationLat = self.tappedLocation!.latitude
+        let destinationLong = self.tappedLocation!.longitude
+        print("Source: \(sourceLat) , \(sourceLong)")
+        print("Destination: \(destinationLat) , \(destinationLong)")
+
+        let request = MKDirections.Request()
+               request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLong), addressDictionary: nil))
+               request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLong), addressDictionary: nil))
+               request.requestsAlternateRoutes = true
+               request.transportType = .automobile
+
+               let directions = MKDirections(request: request)
+
+               directions.calculate { [unowned self] response, error in
+                   guard let unwrappedResponse = response else { return }
+
+                   for route in unwrappedResponse.routes {
+                       self.mapObject.addOverlay(route.polyline)
+                       self.mapObject.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                   }
+               }
+    }
+    func mapObject(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+           let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+           renderer.strokeColor = UIColor.blue
+           return renderer
+       }
+    
 }
 extension ViewController: CLLocationManagerDelegate {
      func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
