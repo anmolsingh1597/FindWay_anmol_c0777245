@@ -41,6 +41,9 @@ class ViewController: UIViewController {
         // Add annotation:
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
+        annotation.title = "Location Tapped"
+        annotation.subtitle = "Your Desired Location"
+        // custom annotation
         mapObject.addAnnotation(annotation)
     }
 
@@ -51,20 +54,20 @@ class ViewController: UIViewController {
             mapObject.isZoomEnabled = false
         
         // pin points
-        let artwork1 = Artwork(
-            title: "Location",
-            locationName: "Your Assigned Location",
-            discipline: "Location",
-            coordinate: CLLocationCoordinate2D(latitude:
-                40.7580, longitude: -73.9855))
-        let artwork2 = Artwork(
-                   title: "Trinity",
-                   locationName: "Trinity Square Mall",
-                   discipline: "Mall",
-                   coordinate: CLLocationCoordinate2D(latitude:
-                       43.7321, longitude: -79.7660))
-            mapObject.addAnnotation(artwork1)
-            mapObject.addAnnotation(artwork2)
+//        let artwork1 = Artwork(
+//            title: "Location",
+//            locationName: "Your Assigned Location",
+//            discipline: "Location",
+//            coordinate: CLLocationCoordinate2D(latitude:
+//                40.7580, longitude: -73.9855))
+//        let artwork2 = Artwork(
+//                   title: "Trinity",
+//                   locationName: "Trinity Square Mall",
+//                   discipline: "Mall",
+//                   coordinate: CLLocationCoordinate2D(latitude:
+//                       43.7321, longitude: -79.7660))
+//            mapObject.addAnnotation(artwork1)
+//            mapObject.addAnnotation(artwork2)
 
         
         // call for current location
@@ -89,7 +92,7 @@ extension ViewController: CLLocationManagerDelegate {
         let currentLocation = location.coordinate
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 800, longitudinalMeters: 800)
         mapObject.setRegion(coordinateRegion, animated: true)
-//        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
      }
      
      func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
