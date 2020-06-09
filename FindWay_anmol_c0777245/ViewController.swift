@@ -29,6 +29,21 @@ class ViewController: UIViewController {
            mapObject.showsUserLocation = true
            mapObject.showsCompass = true
            mapObject.showsScale = true
+        let artwork1 = Artwork(
+            title: "Location",
+            locationName: "Your Assigned Location",
+            discipline: "Location",
+            coordinate: CLLocationCoordinate2D(latitude:
+                40.7580, longitude: -73.9855))
+        let artwork2 = Artwork(
+                   title: "Location",
+                   locationName: "Your Assigned Location",
+                   discipline: "Location",
+                   coordinate: CLLocationCoordinate2D(latitude:
+                       43.7321, longitude: -79.7660))
+            mapObject.addAnnotation(artwork1)
+            mapObject.addAnnotation(artwork2)
+
            currentLocation()
         }
         
