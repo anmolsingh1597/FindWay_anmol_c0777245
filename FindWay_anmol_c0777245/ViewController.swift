@@ -51,10 +51,10 @@ extension ViewController: CLLocationManagerDelegate {
         let currentLocation = location.coordinate
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 800, longitudinalMeters: 800)
         mapObject.setRegion(coordinateRegion, animated: true)
-        locationManager.stopUpdatingLocation()
+//        locationManager.stopUpdatingLocation()
      }
      
      func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+        print("Error Occured: \(error.localizedDescription)")
      }
 }
