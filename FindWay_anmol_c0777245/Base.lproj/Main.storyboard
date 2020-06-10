@@ -20,8 +20,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPC-jP-LHa">
-                                <rect key="frame" x="246" y="816" width="159" height="46"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPC-jP-LHa">
+                                <rect key="frame" x="297" y="784" width="108" height="30"/>
                                 <color key="backgroundColor" red="0.088881986590000003" green="0.21694519349999999" blue="0.26583433969999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="   Find My Way  ">
@@ -31,18 +31,28 @@
                                     <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="58Q-Lr-BgA"/>
                                 </connections>
                             </button>
+                            <tabBar hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qX0-zo-Niy">
+                                <rect key="frame" x="0.0" y="816" width="414" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="QG4-L8-aJZ"/>
+                                    <tabBarItem systemItem="more" id="EYi-QF-Bms"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="OPC-jP-LHa" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="0Vc-cX-f8J"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OPC-jP-LHa" secondAttribute="trailing" constant="9" id="H8O-gS-kCy"/>
+                            <constraint firstItem="OPC-jP-LHa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="740" id="fNm-5f-2No"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="findMyWayBtn" destination="OPC-jP-LHa" id="fHo-Zq-DWV"/>
                         <outlet property="mapObject" destination="8Yf-Su-UcN" id="3l5-Ah-CWD"/>
+                        <outlet property="routeTabBar" destination="qX0-zo-Niy" id="9AL-SB-uR5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

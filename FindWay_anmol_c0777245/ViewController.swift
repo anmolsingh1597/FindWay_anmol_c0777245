@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UITabBarControllerDelegate{
 
     @IBOutlet weak var mapObject: MKMapView!
     let locationManager: CLLocationManager = {
@@ -19,6 +19,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }()
     var tappedLocation: CLLocationCoordinate2D?
     @IBOutlet weak var findMyWayBtn: UIButton!
+    @IBOutlet weak var routeTabBar: UITabBar!
+    let request = MKDirections.Request()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
         findMyWayBtn.layer.cornerRadius = 15
         findMyWayBtn.layer.borderWidth = 1.5
         findMyWayBtn.layer.borderColor = UIColor.white.cgColor
+        //route tab bar
+//         self.delegate = self
+        routeTabBar.delegate = self
+        routeTabBar.selectedItem = routeTabBar.items?[0]
         // handle double tap
         let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
         tap.numberOfTapsRequired = 2
@@ -56,23 +62,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
             mapObject.showsScale = true
             mapObject.isZoomEnabled = false
             mapObject.isScrollEnabled = true
-        
-        // pin points
-//        let artwork1 = Artwork(
-//            title: "Location",
-//            locationName: "Your Assigned Location",
-//            discipline: "Location",
-//            coordinate: CLLocationCoordinate2D(latitude:
-//                40.7580, longitude: -73.9855))
-//        let artwork2 = Artwork(
-//                   title: "Trinity",
-//                   locationName: "Trinity Square Mall",
-//                   discipline: "Mall",
-//                   coordinate: CLLocationCoordinate2D(latitude:
-//                       43.7321, longitude: -79.7660))
-//            mapObject.addAnnotation(artwork1)
-//            mapObject.addAnnotation(artwork2)
-
         // call for current location
            currentLocation()
         }
@@ -87,17 +76,30 @@ class ViewController: UIViewController, MKMapViewDelegate {
            }
            locationManager.startUpdatingLocation()
         }
-
+    
+    // find my way
     @IBAction func findMyWay(_ sender: UIButton) {
-//        print("Find My Way")
-        let sourceLat = mapObject.userLocation.location!.coordinate.latitude
-        let sourceLong = mapObject.userLocation.location!.coordinate.longitude
-        let destinationLat = self.tappedLocation!.latitude
-        let destinationLong = self.tappedLocation!.longitude
+        //source and destination lat and long
+        let sourceLat = mapObject.userLocation.location?.coordinate.latitude ?? 0.00
+        let sourceLong = mapObject.userLocation.location?.coordinate.longitude ?? 0.00
+        let destinationLat = self.tappedLocation?.latitude ?? 0.00
+        let destinationLong = self.tappedLocation?.longitude ?? 0.00
         print("Source: \(sourceLat) , \(sourceLong)")
         print("Destination: \(destinationLat) , \(destinationLong)")
-        
-        let request = MKDirections.Request()
+        if(sourceLat == 0.0 || sourceLong == 0.0){
+            let alert = UIAlertController(title: "Location couldn't retrieve!!", message: "Simulate Location from your xcode", preferredStyle: UIAlertController.Style.alert)
+                       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                       self.present(alert, animated: true, completion: nil)
+        }
+        else if(destinationLat == 0.0 || destinationLong == 0.0){
+            let alert = UIAlertController(title: "Alert", message: "Please double tap to select destination", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }else{
+        // button visibilities
+        routeTabBar.isHidden = false
+
+        // request globally declared
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLong), addressDictionary: nil))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLong), addressDictionary: nil))
                request.requestsAlternateRoutes = true
@@ -113,14 +115,25 @@ class ViewController: UIViewController, MKMapViewDelegate {
                        self.mapObject.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
                    }
                }
+        }
     }
+    
+    // map view delegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         renderer.strokeColor = UIColor.blue
         renderer.lineWidth = 3.0
+        renderer.alpha = 0.5
                return renderer
     }
-    
+   
+    // route tab bar
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        //MARK: - UITabBarControllerDelegate
+        print(tabBarController.selectedIndex)
+        print(viewController)
+    }
+
 }
 extension ViewController: CLLocationManagerDelegate {
      func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
