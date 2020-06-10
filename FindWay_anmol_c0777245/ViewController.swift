@@ -20,6 +20,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     var tappedLocation: CLLocationCoordinate2D?
     @IBOutlet weak var findMyWayBtn: UIButton!
     @IBOutlet weak var routeTabBar: UITabBar!
+    
     let request = MKDirections.Request()
     
     override func viewDidLoad() {
@@ -32,9 +33,10 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         findMyWayBtn.layer.cornerRadius = 15
         findMyWayBtn.layer.borderWidth = 1.5
         findMyWayBtn.layer.borderColor = UIColor.white.cgColor
-        //route tab bar
-//         self.delegate = self
+        //route tab bar requested route
         routeTabBar.delegate = self
+        request.transportType = .walking
+        // tabBar selection
         routeTabBar.selectedItem = routeTabBar.items?[0]
         // handle double tap
         let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
@@ -79,43 +81,45 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     
     // find my way
     @IBAction func findMyWay(_ sender: UIButton) {
+       routeFinder()
+    }
+    
+    // func route variation
+    func routeFinder(){
         //source and destination lat and long
-        let sourceLat = mapObject.userLocation.location?.coordinate.latitude ?? 0.00
-        let sourceLong = mapObject.userLocation.location?.coordinate.longitude ?? 0.00
-        let destinationLat = self.tappedLocation?.latitude ?? 0.00
-        let destinationLong = self.tappedLocation?.longitude ?? 0.00
-        print("Source: \(sourceLat) , \(sourceLong)")
-        print("Destination: \(destinationLat) , \(destinationLong)")
-        if(sourceLat == 0.0 || sourceLong == 0.0){
-            let alert = UIAlertController(title: "Location couldn't retrieve!!", message: "Simulate Location from your xcode", preferredStyle: UIAlertController.Style.alert)
-                       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                       self.present(alert, animated: true, completion: nil)
-        }
-        else if(destinationLat == 0.0 || destinationLong == 0.0){
-            let alert = UIAlertController(title: "Alert", message: "Please double tap to select destination", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }else{
-        // button visibilities
-        routeTabBar.isHidden = false
+               let sourceLat = mapObject.userLocation.location?.coordinate.latitude ?? 0.00
+               let sourceLong = mapObject.userLocation.location?.coordinate.longitude ?? 0.00
+               let destinationLat = self.tappedLocation?.latitude ?? 0.00
+               let destinationLong = self.tappedLocation?.longitude ?? 0.00
+               print("Source: \(sourceLat) , \(sourceLong)")
+               print("Destination: \(destinationLat) , \(destinationLong)")
+               if(sourceLat == 0.0 || sourceLong == 0.0){
+                   let alert = UIAlertController(title: "Location couldn't retrieve!!", message: "Simulate Location from your xcode", preferredStyle: UIAlertController.Style.alert)
+                              alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                              self.present(alert, animated: true, completion: nil)
+               }
+               else if(destinationLat == 0.0 || destinationLong == 0.0){
+                   let alert = UIAlertController(title: "Alert", message: "Please double tap to select destination", preferredStyle: UIAlertController.Style.alert)
+                   alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                   self.present(alert, animated: true, completion: nil)
+               }else{
+               // request globally declared
+               request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLong), addressDictionary: nil))
+               request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLong), addressDictionary: nil))
+                      request.requestsAlternateRoutes = true
+               
 
-        // request globally declared
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLong), addressDictionary: nil))
-        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLong), addressDictionary: nil))
-               request.requestsAlternateRoutes = true
-        request.transportType = .walking
+                      let directions = MKDirections(request: request)
 
-               let directions = MKDirections(request: request)
+                      directions.calculate { [unowned self] response, error in
+                          guard let unwrappedResponse = response else { return }
 
-               directions.calculate { [unowned self] response, error in
-                   guard let unwrappedResponse = response else { return }
-
-                   for route in unwrappedResponse.routes {
-                       self.mapObject.addOverlay(route.polyline)
-                       self.mapObject.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                          for route in unwrappedResponse.routes {
+                              self.mapObject.addOverlay(route.polyline)
+                              self.mapObject.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                       }
                    }
                }
-        }
     }
     
     // map view delegate
@@ -128,10 +132,16 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     }
    
     // route tab bar
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        //MARK: - UITabBarControllerDelegate
-        print(tabBarController.selectedIndex)
-        print(viewController)
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if(item == routeTabBar.items?[0]){
+        self.request.transportType = .walking
+        routeTabBar.selectedItem = routeTabBar.items?[0]
+        routeFinder()
+        }else if(item == routeTabBar.items?[1]){
+        self.request.transportType = .automobile
+        routeTabBar.selectedItem = routeTabBar.items?[1]
+        routeFinder()
+        }
     }
 
 }

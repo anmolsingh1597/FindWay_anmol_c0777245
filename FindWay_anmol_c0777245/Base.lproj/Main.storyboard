@@ -31,13 +31,13 @@
                                     <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="58Q-Lr-BgA"/>
                                 </connections>
                             </button>
-                            <tabBar hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qX0-zo-Niy">
-                                <rect key="frame" x="0.0" y="816" width="414" height="49"/>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfj-2A-uZh">
+                                <rect key="frame" x="0.0" y="814" width="414" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem systemItem="favorites" id="QG4-L8-aJZ"/>
-                                    <tabBarItem systemItem="more" id="EYi-QF-Bms"/>
+                                    <tabBarItem title="Walking" image="tortoise" catalog="system" id="LAa-h4-Sl5"/>
+                                    <tabBarItem title="Automobile" image="car" catalog="system" id="4lu-vk-Exq"/>
                                 </items>
                             </tabBar>
                         </subviews>
@@ -52,7 +52,7 @@
                     <connections>
                         <outlet property="findMyWayBtn" destination="OPC-jP-LHa" id="fHo-Zq-DWV"/>
                         <outlet property="mapObject" destination="8Yf-Su-UcN" id="3l5-Ah-CWD"/>
-                        <outlet property="routeTabBar" destination="qX0-zo-Niy" id="9AL-SB-uR5"/>
+                        <outlet property="routeTabBar" destination="Yfj-2A-uZh" id="gVW-Rv-0Uw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -60,4 +60,8 @@
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="car" catalog="system" width="128" height="93"/>
+        <image name="tortoise" catalog="system" width="128" height="68"/>
+    </resources>
 </document>
