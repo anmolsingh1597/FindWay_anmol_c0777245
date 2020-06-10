@@ -18,6 +18,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return manager
     }()
     var tappedLocation: CLLocationCoordinate2D?
+    @IBOutlet weak var findMyWayBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
          mapObject.delegate = self
         // map intialzing
         setUpMapView()
-        
+        //find my way button attribute
+        findMyWayBtn.layer.cornerRadius = 15
+        findMyWayBtn.layer.borderWidth = 1.5
+        findMyWayBtn.layer.borderColor = UIColor.white.cgColor
         // handle double tap
         let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
         tap.numberOfTapsRequired = 2
