@@ -46,6 +46,12 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     
     @objc func doubleTapped(gestureRecognizer: UITapGestureRecognizer)
     {
+        // remove all annotations(markers)
+        let allAnnotations = self.mapObject.annotations
+        self.mapObject.removeAnnotations(allAnnotations)
+        //remove overlays
+        mapObject.removeOverlays(mapObject.overlays)
+        //location finder with double tap
         let location = gestureRecognizer.location(in: mapObject)
         self.tappedLocation = mapObject.convert(location, toCoordinateFrom: mapObject)
         
@@ -126,7 +132,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         renderer.strokeColor = UIColor.blue
-        renderer.lineWidth = 3.0
+        renderer.lineWidth = 5.0
         renderer.alpha = 0.5
                return renderer
     }
