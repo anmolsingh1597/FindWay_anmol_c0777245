@@ -9,8 +9,7 @@
 import UIKit
 import MapKit
 
-
-class ViewController: UIViewController {
+class ViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapObject: MKMapView!
     let locationManager: CLLocationManager = {
@@ -23,7 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+         mapObject.delegate = self
         // map intialzing
         setUpMapView()
         
@@ -86,19 +85,19 @@ class ViewController: UIViewController {
         }
 
     @IBAction func findMyWay(_ sender: UIButton) {
-        print("Find My Way")
+//        print("Find My Way")
         let sourceLat = mapObject.userLocation.location!.coordinate.latitude
         let sourceLong = mapObject.userLocation.location!.coordinate.longitude
         let destinationLat = self.tappedLocation!.latitude
         let destinationLong = self.tappedLocation!.longitude
         print("Source: \(sourceLat) , \(sourceLong)")
         print("Destination: \(destinationLat) , \(destinationLong)")
-
+        
         let request = MKDirections.Request()
-               request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLong), addressDictionary: nil))
-               request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLong), addressDictionary: nil))
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLong), addressDictionary: nil))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLong), addressDictionary: nil))
                request.requestsAlternateRoutes = true
-               request.transportType = .automobile
+        request.transportType = .walking
 
                let directions = MKDirections(request: request)
 
@@ -111,11 +110,12 @@ class ViewController: UIViewController {
                    }
                }
     }
-    func mapObject(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-           let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-           renderer.strokeColor = UIColor.blue
-           return renderer
-       }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+        renderer.strokeColor = UIColor.blue
+        renderer.lineWidth = 3.0
+               return renderer
+    }
     
 }
 extension ViewController: CLLocationManagerDelegate {

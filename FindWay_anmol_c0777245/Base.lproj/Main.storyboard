@@ -21,10 +21,14 @@
                                 <gestureRecognizers/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPC-jP-LHa">
-                                <rect key="frame" x="283" y="832" width="88" height="30"/>
-                                <state key="normal" title="Find My Way"/>
+                                <rect key="frame" x="317" y="832" width="88" height="30"/>
+                                <color key="backgroundColor" red="0.088881986590000003" green="0.21694519349999999" blue="0.26583433969999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Find My Way">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="regular"/>
+                                </state>
                                 <connections>
-                                    <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l5A-Sw-LsP"/>
+                                    <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="58Q-Lr-BgA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -32,7 +36,7 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="OPC-jP-LHa" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="0Vc-cX-f8J"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OPC-jP-LHa" secondAttribute="trailing" constant="43" id="zJH-fa-xAc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OPC-jP-LHa" secondAttribute="trailing" constant="9" id="H8O-gS-kCy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
