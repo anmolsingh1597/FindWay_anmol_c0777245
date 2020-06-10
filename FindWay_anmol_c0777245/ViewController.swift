@@ -149,7 +149,23 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         routeFinder()
         }
     }
-
+    
+    // Zoom In button
+    @IBAction func zoomInButton(_ sender: UIButton) {
+        var region: MKCoordinateRegion = mapObject.region
+        region.span.latitudeDelta /= 2.0
+        region.span.longitudeDelta /= 2.0
+        mapObject.setRegion(region, animated: true)
+    }
+    
+    // Zoom Out Buttom
+    @IBAction func zoomOutButton(_ sender: UIButton) {
+    var region: MKCoordinateRegion = mapObject.region
+    region.span.latitudeDelta = min(region.span.latitudeDelta * 2.0, 180.0)
+    region.span.longitudeDelta = min(region.span.longitudeDelta * 2.0, 180.0)
+    mapObject.setRegion(region, animated: true)
+    }
+    
 }
 extension ViewController: CLLocationManagerDelegate {
      func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -157,7 +173,8 @@ extension ViewController: CLLocationManagerDelegate {
         let currentLocation = location.coordinate
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 800, longitudinalMeters: 800)
         mapObject.setRegion(coordinateRegion, animated: true)
-        //locationManager.stopUpdatingLocation()
+        // automatically updates location
+        locationManager.stopUpdatingLocation()
      }
      
      func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

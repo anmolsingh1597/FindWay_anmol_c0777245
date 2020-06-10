@@ -40,6 +40,25 @@
                                     <tabBarItem title="Automobile" image="car" catalog="system" id="4lu-vk-Exq"/>
                                 </items>
                             </tabBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk2-P7-VC4">
+                                <rect key="frame" x="361" y="102" width="20" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="plus.magnifyingglass" catalog="system"/>
+                                <connections>
+                                    <action selector="zoomInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s82-3M-Fcr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztT-NP-utP">
+                                <rect key="frame" x="361" y="149" width="20" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="minus.magnifyingglass" catalog="system"/>
+                                <connections>
+                                    <action selector="zoomOutButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZOZ-mE-SwP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
@@ -62,6 +81,8 @@
     </scenes>
     <resources>
         <image name="car" catalog="system" width="128" height="93"/>
+        <image name="minus.magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="tortoise" catalog="system" width="128" height="68"/>
     </resources>
 </document>
