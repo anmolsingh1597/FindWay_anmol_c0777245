@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+
 class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UITabBarControllerDelegate{
 
     @IBOutlet weak var mapObject: MKMapView!
@@ -30,15 +31,15 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         // map intialzing
         setUpMapView()
         //find my way button attribute
-        findMyWayBtn.layer.cornerRadius = 15
-        findMyWayBtn.layer.borderWidth = 1.5
+        findMyWayBtn.layer.cornerRadius = 38
+        findMyWayBtn.layer.borderWidth = 1
         findMyWayBtn.layer.borderColor = UIColor.white.cgColor
+        findMyWayBtn.widthAnchor.constraint(equalToConstant: 75.0).isActive = true
+        findMyWayBtn.heightAnchor.constraint(equalToConstant: 75.0).isActive = true
         //route tab bar requested route and visibility
-        routeTabBar.isHidden = true
+//        routeTabBar.isHidden = true
         routeTabBar.delegate = self
         request.transportType = .walking
-        // tabBar selection
-        routeTabBar.selectedItem = routeTabBar.items?[0]
         // handle double tap
         let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
         tap.numberOfTapsRequired = 2
@@ -90,14 +91,13 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     
     // find my way
     @IBAction func findMyWay(_ sender: UIButton) {
-       routeFinder()
+        // tabBar selection
+        routeTabBar.selectedItem = routeTabBar.items?[0]
+        routeFinder()
     }
     
     // func route variation
     func routeFinder(){
-        //findMyWaybutton and route tab bar visibility
-        routeTabBar.isHidden = false
-        findMyWayBtn.isHidden = true
         //source and destination lat and long
         let sourceLat = mapObject.userLocation.location?.coordinate.latitude ?? 0.00
         let sourceLong = mapObject.userLocation.location?.coordinate.longitude ?? 0.00
@@ -115,6 +115,9 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                    self.present(alert, animated: true, completion: nil)
         }else{
+            //findMyWaybutton and route tab bar visibility
+            routeTabBar.isHidden = false
+            findMyWayBtn.isHidden = true
             // request globally declared
             request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLong), addressDictionary: nil))
             request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLong), addressDictionary: nil))

@@ -20,18 +20,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPC-jP-LHa">
-                                <rect key="frame" x="297" y="784" width="108" height="30"/>
-                                <color key="backgroundColor" red="0.088881986590000003" green="0.21694519349999999" blue="0.26583433969999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="   Find My Way  ">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="regular"/>
-                                </state>
-                                <connections>
-                                    <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="58Q-Lr-BgA"/>
-                                </connections>
-                            </button>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfj-2A-uZh">
+                            <tabBar hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfj-2A-uZh">
                                 <rect key="frame" x="0.0" y="814" width="414" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -59,6 +48,17 @@
                                     <action selector="zoomOutButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZOZ-mE-SwP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPC-jP-LHa">
+                                <rect key="frame" x="267" y="837" width="147" height="22"/>
+                                <color key="backgroundColor" red="0.088881986590000003" green="0.21694519349999999" blue="0.26583433969999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="location.circle.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="regular"/>
+                                </state>
+                                <connections>
+                                    <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="58Q-Lr-BgA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
@@ -81,6 +81,7 @@
     </scenes>
     <resources>
         <image name="car" catalog="system" width="128" height="93"/>
+        <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="tortoise" catalog="system" width="128" height="68"/>
