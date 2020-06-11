@@ -37,9 +37,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         findMyWayBtn.widthAnchor.constraint(equalToConstant: 75.0).isActive = true
         findMyWayBtn.heightAnchor.constraint(equalToConstant: 75.0).isActive = true
         //route tab bar requested route and visibility
-//        routeTabBar.isHidden = true
         routeTabBar.delegate = self
-        request.transportType = .walking
         // handle double tap
         let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
         tap.numberOfTapsRequired = 2
@@ -93,6 +91,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     @IBAction func findMyWay(_ sender: UIButton) {
         // tabBar selection
         routeTabBar.selectedItem = routeTabBar.items?[0]
+        // transport type walking
+        request.transportType = .walking
         routeFinder()
     }
     
