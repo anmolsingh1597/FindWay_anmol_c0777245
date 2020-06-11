@@ -33,7 +33,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         findMyWayBtn.layer.cornerRadius = 15
         findMyWayBtn.layer.borderWidth = 1.5
         findMyWayBtn.layer.borderColor = UIColor.white.cgColor
-        //route tab bar requested route
+        //route tab bar requested route and visibility
+        routeTabBar.isHidden = true
         routeTabBar.delegate = self
         request.transportType = .walking
         // tabBar selection
@@ -62,6 +63,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         annotation.subtitle = "Your Desired Location"
         // custom annotation
         mapObject.addAnnotation(annotation)
+        routeTabBar.isHidden = true
+        findMyWayBtn.isHidden = false
     }
 
     func setUpMapView() {
@@ -92,6 +95,9 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     
     // func route variation
     func routeFinder(){
+        //findMyWaybutton and route tab bar visibility
+        routeTabBar.isHidden = false
+        findMyWayBtn.isHidden = true
         //source and destination lat and long
         let sourceLat = mapObject.userLocation.location?.coordinate.latitude ?? 0.00
         let sourceLong = mapObject.userLocation.location?.coordinate.longitude ?? 0.00
@@ -133,20 +139,24 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         renderer.strokeColor = UIColor.blue
         renderer.lineWidth = 5.0
-        renderer.alpha = 0.5
+        renderer.alpha = 0.80
                return renderer
     }
    
     // route tab bar
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if(item == routeTabBar.items?[0]){
-        self.request.transportType = .walking
-        routeTabBar.selectedItem = routeTabBar.items?[0]
-        routeFinder()
+            //remove overlays
+            mapObject.removeOverlays(mapObject.overlays)
+            self.request.transportType = .walking
+            routeTabBar.selectedItem = routeTabBar.items?[0]
+            routeFinder()
         }else if(item == routeTabBar.items?[1]){
-        self.request.transportType = .automobile
-        routeTabBar.selectedItem = routeTabBar.items?[1]
-        routeFinder()
+            //remove overlays
+            mapObject.removeOverlays(mapObject.overlays)
+            self.request.transportType = .automobile
+            routeTabBar.selectedItem = routeTabBar.items?[1]
+            routeFinder()
         }
     }
     
