@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This Application Use your current location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This Application Use your current location</string>
+	<string>This Application wants to use your current location</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
