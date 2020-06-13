@@ -11,7 +11,9 @@ import MapKit
 
 
 class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UITabBarControllerDelegate{
-
+    @IBOutlet weak var zoomInBtn: UIButton!
+    @IBOutlet weak var zoomOutBtn: UIButton!
+    
     @IBOutlet weak var mapObject: MKMapView!
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -27,21 +29,25 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-         mapObject.delegate = self
+            mapObject.delegate = self
         // map intialzing
-        setUpMapView()
+            setUpMapView()
         //find my way button attribute
-        findMyWayBtn.layer.cornerRadius = 38
-        findMyWayBtn.layer.borderWidth = 1
-        findMyWayBtn.layer.borderColor = UIColor.white.cgColor
-        findMyWayBtn.widthAnchor.constraint(equalToConstant: 75.0).isActive = true
-        findMyWayBtn.heightAnchor.constraint(equalToConstant: 75.0).isActive = true
+            findMyWayBtn.layer.cornerRadius = 38
+            findMyWayBtn.layer.borderWidth = 1
+            findMyWayBtn.layer.borderColor = UIColor.white.cgColor
+            findMyWayBtn.widthAnchor.constraint(equalToConstant: 75.0).isActive = true
+            findMyWayBtn.heightAnchor.constraint(equalToConstant: 75.0).isActive = true
+
+        //zoom in zoom out buttons
+        zoomInBtn.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        zoomOutBtn.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         //route tab bar requested route and visibility
-        routeTabBar.delegate = self
+            routeTabBar.delegate = self
         // handle double tap
-        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
-        tap.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tap)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+            tap.numberOfTapsRequired = 2
+            view.addGestureRecognizer(tap)
     }
     
     @objc func doubleTapped(gestureRecognizer: UITapGestureRecognizer)

@@ -30,9 +30,9 @@
                                 </items>
                             </tabBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk2-P7-VC4">
-                                <rect key="frame" x="361" y="102" width="20" height="22"/>
+                                <rect key="frame" x="361" y="98" width="20" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="plus.magnifyingglass" catalog="system"/>
                                 <connections>
@@ -40,8 +40,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztT-NP-utP">
-                                <rect key="frame" x="361" y="149" width="20" height="22"/>
+                                <rect key="frame" x="361" y="145" width="20" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="minus.magnifyingglass" catalog="system"/>
                                 <connections>
@@ -72,6 +73,8 @@
                         <outlet property="findMyWayBtn" destination="OPC-jP-LHa" id="fHo-Zq-DWV"/>
                         <outlet property="mapObject" destination="8Yf-Su-UcN" id="3l5-Ah-CWD"/>
                         <outlet property="routeTabBar" destination="Yfj-2A-uZh" id="gVW-Rv-0Uw"/>
+                        <outlet property="zoomInBtn" destination="dk2-P7-VC4" id="1la-8x-3sQ"/>
+                        <outlet property="zoomOutBtn" destination="ztT-NP-utP" id="gqE-2b-o5i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
