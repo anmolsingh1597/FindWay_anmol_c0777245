@@ -11,8 +11,10 @@ import MapKit
 
 
 class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UITabBarControllerDelegate{
-    @IBOutlet weak var zoomInBtn: UIButton!
-    @IBOutlet weak var zoomOutBtn: UIButton!
+    
+    //MARK: Zoom in zoom out button deprecated because stepper for zoom in zoom out integrated
+//    @IBOutlet weak var zoomInBtn: UIButton!
+//    @IBOutlet weak var zoomOutBtn: UIButton!
     
     @IBOutlet weak var mapObject: MKMapView!
     let locationManager: CLLocationManager = {
@@ -43,9 +45,6 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
             findMyWayBtn.widthAnchor.constraint(equalToConstant: 75.0).isActive = true
             findMyWayBtn.heightAnchor.constraint(equalToConstant: 75.0).isActive = true
 
-        //zoom in zoom out buttons
-        zoomInBtn.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-        zoomOutBtn.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         //route tab bar requested route and visibility
             routeTabBar.delegate = self
         // handle double tap
@@ -54,6 +53,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
             view.addGestureRecognizer(tap)
     }
     
+    //MARK: double tap function
     @objc func doubleTapped(gestureRecognizer: UITapGestureRecognizer)
     {
         // remove all annotations(markers)
@@ -79,16 +79,16 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     //MARK:- Stepper value change
     @IBAction func zoomStepperValueChange(_ sender: UIStepper) {
 
-        var stepperValue = zoomStepper.value
+        let stepperValue = zoomStepper.value
         if(stepperValue > self.stepperComparingValue){
-//                    print("Zoom in")
+
             var region: MKCoordinateRegion = mapObject.region
             region.span.latitudeDelta /= 2.0
             region.span.longitudeDelta /= 2.0
             mapObject.setRegion(region, animated: true)
             self.stepperComparingValue = stepperValue
         }else if(stepperValue < self.stepperComparingValue){
-//            print("zoom Out")
+
             var region: MKCoordinateRegion = mapObject.region
               region.span.latitudeDelta = min(region.span.latitudeDelta * 2.0, 180.0)
               region.span.longitudeDelta = min(region.span.longitudeDelta * 2.0, 180.0)
@@ -97,7 +97,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         }
     }
     
-
+//MARK: setting up map
     func setUpMapView() {
             mapObject.showsUserLocation = true
             mapObject.showsCompass = true
@@ -108,7 +108,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
            currentLocation()
         }
         
-        func currentLocation() {
+    //MARK: current location
+    func currentLocation() {
            locationManager.delegate = self
            locationManager.desiredAccuracy = kCLLocationAccuracyBest
            if #available(iOS 11.0, *) {
@@ -119,16 +120,26 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
            locationManager.startUpdatingLocation()
         }
     
-    // find my way
+    //MARK: find my way
     @IBAction func findMyWay(_ sender: UIButton) {
-        // tabBar selection
-        routeTabBar.selectedItem = routeTabBar.items?[0]
-        // transport type walking
-        request.transportType = .walking
-        routeFinder()
+        let alert = UIAlertController(title: "Choose!!", message: "Please select the route type", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Walking", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+
+            self.routeTabBar.selectedItem = self.routeTabBar.items?[0]
+            self.request.transportType = .walking
+            self.routeFinder()
+        }))
+        alert.addAction(UIAlertAction(title: "Automobile", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+
+            self.routeTabBar.selectedItem = self.routeTabBar.items?[1]
+                self.request.transportType = .automobile
+                self.routeFinder()
+               }))
+        self.present(alert, animated: true, completion: nil)
     }
     
-    // func route variation
+    //MARK: func route variation
     func routeFinder(){
         //source and destination lat and long
         let sourceLat = mapObject.userLocation.location?.coordinate.latitude ?? 0.00
@@ -169,7 +180,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         }
     }
     
-    // map view delegate
+    //MARK: map view delegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if self.request.transportType == .automobile
         {
@@ -191,7 +202,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         return MKOverlayRenderer()
     }
    
-    // route tab bar
+    //MARK: route tab bar
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if(item == routeTabBar.items?[0]){
             //remove overlays
@@ -209,22 +220,24 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     }
     
     // Zoom In button
-    @IBAction func zoomInButton(_ sender: UIButton) {
-        var region: MKCoordinateRegion = mapObject.region
-        region.span.latitudeDelta /= 2.0
-        region.span.longitudeDelta /= 2.0
-        mapObject.setRegion(region, animated: true)
-    }
+//    @IBAction func zoomInButton(_ sender: UIButton) {
+//        var region: MKCoordinateRegion = mapObject.region
+//        region.span.latitudeDelta /= 2.0
+//        region.span.longitudeDelta /= 2.0
+//        mapObject.setRegion(region, animated: true)
+//    }
     
     // Zoom Out Buttom
-    @IBAction func zoomOutButton(_ sender: UIButton) {
-    var region: MKCoordinateRegion = mapObject.region
-    region.span.latitudeDelta = min(region.span.latitudeDelta * 2.0, 180.0)
-    region.span.longitudeDelta = min(region.span.longitudeDelta * 2.0, 180.0)
-    mapObject.setRegion(region, animated: true)
-    }
+//    @IBAction func zoomOutButton(_ sender: UIButton) {
+//    var region: MKCoordinateRegion = mapObject.region
+//    region.span.latitudeDelta = min(region.span.latitudeDelta * 2.0, 180.0)
+//    region.span.longitudeDelta = min(region.span.longitudeDelta * 2.0, 180.0)
+//    mapObject.setRegion(region, animated: true)
+//    }
     
 }
+
+//MARK: extension for location manager
 extension ViewController: CLLocationManagerDelegate {
      func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last! as CLLocation

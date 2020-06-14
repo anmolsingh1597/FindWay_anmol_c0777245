@@ -29,26 +29,6 @@
                                     <tabBarItem title="Automobile" image="car" catalog="system" id="4lu-vk-Exq"/>
                                 </items>
                             </tabBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk2-P7-VC4">
-                                <rect key="frame" x="361" y="98" width="20" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="plus.magnifyingglass" catalog="system"/>
-                                <connections>
-                                    <action selector="zoomInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s82-3M-Fcr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztT-NP-utP">
-                                <rect key="frame" x="361" y="145" width="20" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="minus.magnifyingglass" catalog="system"/>
-                                <connections>
-                                    <action selector="zoomOutButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZOZ-mE-SwP"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPC-jP-LHa">
                                 <rect key="frame" x="267" y="837" width="147" height="22"/>
                                 <color key="backgroundColor" red="0.088881986590000003" green="0.21694519349999999" blue="0.26583433969999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -80,8 +60,6 @@
                         <outlet property="findMyWayBtn" destination="OPC-jP-LHa" id="fHo-Zq-DWV"/>
                         <outlet property="mapObject" destination="8Yf-Su-UcN" id="3l5-Ah-CWD"/>
                         <outlet property="routeTabBar" destination="Yfj-2A-uZh" id="gVW-Rv-0Uw"/>
-                        <outlet property="zoomInBtn" destination="dk2-P7-VC4" id="1la-8x-3sQ"/>
-                        <outlet property="zoomOutBtn" destination="ztT-NP-utP" id="gqE-2b-o5i"/>
                         <outlet property="zoomStepper" destination="tjy-qk-Aev" id="1X4-Bd-g9X"/>
                     </connections>
                 </viewController>
@@ -93,8 +71,6 @@
     <resources>
         <image name="car" catalog="system" width="128" height="93"/>
         <image name="location.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="minus.magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="tortoise" catalog="system" width="128" height="68"/>
     </resources>
 </document>
