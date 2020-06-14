@@ -122,6 +122,24 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     
     //MARK: find my way
     @IBAction func findMyWay(_ sender: UIButton) {
+
+            let sourceLat = mapObject.userLocation.location?.coordinate.latitude ?? 0.00
+            let sourceLong = mapObject.userLocation.location?.coordinate.longitude ?? 0.00
+            let destinationLat = self.tappedLocation?.latitude ?? 0.00
+            let destinationLong = self.tappedLocation?.longitude ?? 0.00
+            print("Source: \(sourceLat) , \(sourceLong)")
+            print("Destination: \(destinationLat) , \(destinationLong)")
+                if(sourceLat == 0.0 || sourceLong == 0.0){
+                    let alert = UIAlertController(title: "Location couldn't retrieve!!", message: "Simulate Location from your xcode", preferredStyle: UIAlertController.Style.alert)
+                                  alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                                  self.present(alert, animated: true, completion: nil)
+            }
+                else if(destinationLat == 0.0 || destinationLong == 0.0){
+                    let alert = UIAlertController(title: "Alert", message: "Please double tap to select destination", preferredStyle: UIAlertController.Style.alert)
+                       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                       self.present(alert, animated: true, completion: nil)
+                }else{
+        
         let alert = UIAlertController(title: "Choose!!", message: "Please select the route type", preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "Walking", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
@@ -137,7 +155,9 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
                 self.routeFinder()
                }))
         self.present(alert, animated: true, completion: nil)
-    }
+   
+        }
+        }
     
     //MARK: func route variation
     func routeFinder(){
@@ -148,17 +168,6 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         let destinationLong = self.tappedLocation?.longitude ?? 0.00
         print("Source: \(sourceLat) , \(sourceLong)")
         print("Destination: \(destinationLat) , \(destinationLong)")
-            if(sourceLat == 0.0 || sourceLong == 0.0){
-                let alert = UIAlertController(title: "Location couldn't retrieve!!", message: "Simulate Location from your xcode", preferredStyle: UIAlertController.Style.alert)
-                              alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                              self.present(alert, animated: true, completion: nil)
-        }
-            else if(destinationLat == 0.0 || destinationLong == 0.0){
-                let alert = UIAlertController(title: "Alert", message: "Please double tap to select destination", preferredStyle: UIAlertController.Style.alert)
-                   alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                   self.present(alert, animated: true, completion: nil)
-        }else{
-            //findMyWaybutton and route tab bar visibility
             routeTabBar.isHidden = false
             findMyWayBtn.isHidden = true
             // request globally declared
@@ -177,7 +186,6 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
                         self.mapObject.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
                 }
             }
-        }
     }
     
     //MARK: map view delegate
