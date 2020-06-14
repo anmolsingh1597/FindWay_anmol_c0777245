@@ -60,6 +60,13 @@
                                     <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="58Q-Lr-BgA"/>
                                 </connections>
                             </button>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-100" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="tjy-qk-Aev">
+                                <rect key="frame" x="20" y="70" width="94" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="zoomStepperValueChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="SQ3-Qe-IF2"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
@@ -75,6 +82,7 @@
                         <outlet property="routeTabBar" destination="Yfj-2A-uZh" id="gVW-Rv-0Uw"/>
                         <outlet property="zoomInBtn" destination="dk2-P7-VC4" id="1la-8x-3sQ"/>
                         <outlet property="zoomOutBtn" destination="ztT-NP-utP" id="gqE-2b-o5i"/>
+                        <outlet property="zoomStepper" destination="tjy-qk-Aev" id="1X4-Bd-g9X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -23,6 +23,10 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
     var tappedLocation: CLLocationCoordinate2D?
     @IBOutlet weak var findMyWayBtn: UIButton!
     @IBOutlet weak var routeTabBar: UITabBar!
+    @IBOutlet weak var zoomStepper: UIStepper!
+    
+    
+    var stepperComparingValue = 0.0
     
     let request = MKDirections.Request()
     
@@ -71,6 +75,28 @@ class ViewController: UIViewController, MKMapViewDelegate, UITabBarDelegate, UIT
         routeTabBar.isHidden = true
         findMyWayBtn.isHidden = false
     }
+    
+    //MARK:- Stepper value change
+    @IBAction func zoomStepperValueChange(_ sender: UIStepper) {
+
+        var stepperValue = zoomStepper.value
+        if(stepperValue > self.stepperComparingValue){
+//                    print("Zoom in")
+            var region: MKCoordinateRegion = mapObject.region
+            region.span.latitudeDelta /= 2.0
+            region.span.longitudeDelta /= 2.0
+            mapObject.setRegion(region, animated: true)
+            self.stepperComparingValue = stepperValue
+        }else if(stepperValue < self.stepperComparingValue){
+//            print("zoom Out")
+            var region: MKCoordinateRegion = mapObject.region
+              region.span.latitudeDelta = min(region.span.latitudeDelta * 2.0, 180.0)
+              region.span.longitudeDelta = min(region.span.longitudeDelta * 2.0, 180.0)
+              mapObject.setRegion(region, animated: true)
+            self.stepperComparingValue = stepperValue
+        }
+    }
+    
 
     func setUpMapView() {
             mapObject.showsUserLocation = true
@@ -203,7 +229,7 @@ extension ViewController: CLLocationManagerDelegate {
      func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last! as CLLocation
         let currentLocation = location.coordinate
-        let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 800, longitudinalMeters: 800)
+        let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 15000, longitudinalMeters: 15000)
         mapObject.setRegion(coordinateRegion, animated: true)
         // automatically updates location
         locationManager.stopUpdatingLocation()
